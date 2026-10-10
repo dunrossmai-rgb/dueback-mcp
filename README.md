@@ -10,9 +10,10 @@ of *verified* savings. If there's no verified saving, the user pays $0.
 
 ## Alpha terms
 
-The first **20 total** Dueback negotiations are completely free (no fee).
-After the alpha cohort fills, standard pricing applies (below). Cases created
-through this server count toward the alpha quota while slots remain.
+Use code **LAUNCH20** — the first **20 redemptions** are completely free
+(no fee). After the alpha cohort fills, standard pricing applies (below).
+Cases created through this server count toward the alpha quota while slots
+remain.
 
 ## Pricing (standard, post-alpha)
 
