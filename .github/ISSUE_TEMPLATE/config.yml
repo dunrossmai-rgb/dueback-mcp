@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Product support (accounts, API keys, cases)
+    url: mailto:support@dueback.co
+    about: Please email support for anything about your own account or a negotiation case — do not post it publicly.
+  - name: Report a security vulnerability (private)
+    url: https://github.com/dunrossmai-rgb/dueback-mcp/security/advisories/new
+    about: Security issues are reported privately, never as public issues. See SECURITY.md.

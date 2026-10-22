@@ -1,0 +1,56 @@
+name: Bug report
+description: Report a problem with the Dueback MCP stdio wrapper or this repo's documentation
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Stop — read this first:** never paste API keys, access tokens,
+        bills, bank details, or other personal data into this form. If your
+        problem involves any of those, email support@dueback.co instead.
+        Security vulnerabilities must be reported privately — see SECURITY.md.
+  - type: input
+    id: client
+    attributes:
+      label: MCP client
+      description: The app you connected with, e.g. Claude Desktop, VS Code, Cursor
+      placeholder: e.g. VS Code
+    validations:
+      required: true
+  - type: input
+    id: client_version
+    attributes:
+      label: Client version
+      placeholder: e.g. 1.101
+    validations:
+      required: false
+  - type: input
+    id: tool
+    attributes:
+      label: Tool involved
+      description: e.g. detect_negotiable_bill, dueback_detect, start_negotiation_case
+      placeholder: e.g. detect_negotiable_bill
+    validations:
+      required: false
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened?
+      description: What did you do, and what did you expect to happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Error text
+      description: Paste the exact error message if there is one. Remove any API keys or personal data first.
+    validations:
+      required: false
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps someone else can follow to see the same problem.
+    validations:
+      required: false

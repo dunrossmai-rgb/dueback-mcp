@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest an improvement to the Dueback MCP wrapper or documentation
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Note: requests about your own Dueback account, an API key, or a
+        negotiation case belong with support@dueback.co, not here — and
+        never include keys, bills, or bank details in this form.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the situation and what is missing today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like to see happen?
+    validations:
+      required: false
+  - type: input
+    id: client
+    attributes:
+      label: MCP client (if relevant)
+      placeholder: e.g. Cursor
+    validations:
+      required: false
