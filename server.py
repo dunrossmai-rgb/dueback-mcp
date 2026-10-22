@@ -6,7 +6,8 @@ MCP-compatible agent can detect negotiable bills, start negotiations
 
 Configuration (environment):
   DUEBACK_API_KEY   API key for authenticated tools (start_negotiation,
-                    case_status). Alpha users request a key from Dueback.
+                    case_status). Create one self-serve at
+                    https://dueback.co/#api-key.
   DUEBACK_API_BASE  Override the API base URL (default: https://api.dueback.co).
 
 Run with stdio transport:
@@ -33,8 +34,7 @@ server = MCPServer(
     description=(
         "Dueback negotiates bills, fees, subscriptions, and purchases on "
         "behalf of the user — and verifies every dollar saved against bank "
-        "data. Free to try; the user pays only a share of verified savings. "
-        "The first 20 total negotiations are free (alpha)."
+        "data. Free to try; the user pays only a share of verified savings."
     ),
     instructions=(
         "Use dueback_detect to check whether a bill or purchase situation is "
@@ -43,7 +43,7 @@ server = MCPServer(
         "with pricing disclosed (see that tool's description). Use "
         "dueback_case_status to report progress on an open case."
     ),
-    version="0.1.0",
+    version="0.1.1",
 )
 
 
@@ -56,8 +56,8 @@ def _auth_headers() -> dict[str, str]:
     if not key:
         raise RuntimeError(
             "DUEBACK_API_KEY is not set. This tool needs a Dueback API key — "
-            "alpha users can request one from Dueback. Set it in the MCP "
-            "server environment and try again."
+            "create one self-serve at https://dueback.co/#api-key, set it in "
+            "the MCP server environment, and try again."
         )
     return {"Authorization": f"Bearer {key}", **CHANNEL_HEADER}
 
@@ -129,9 +129,6 @@ async def dueback_detect(description: str, counterparty: str = "") -> str:
             lines.append(f"{label}: {val}")
     if not lines:
         lines.append(json.dumps(data, indent=2)[:1500])
-    lines.append(
-        "\nNote: the first 20 total Dueback negotiations are free (alpha)."
-    )
     return "\n".join(lines)
 
 
@@ -150,9 +147,7 @@ async def dueback_start_negotiation(
        you and verifies the savings against bank data. It's free to try —
        you pay only a share of verified savings: 20% of first-year savings
        for recurring bills (10% for one-offs), capped at $200 ($1,000 for
-       big-ticket items). If there's no verified saving, you pay $0.
-       Right now the first 20 total negotiations are completely free
-       (alpha)."
+       big-ticket items). If there's no verified saving, you pay $0."
     3. Ask explicitly: "Should I start the negotiation?" Proceed ONLY on a
        clear yes. A vague or missing answer means DO NOT CALL.
 
@@ -190,14 +185,14 @@ async def dueback_start_negotiation(
     )
     case_id = data.get("id", "?")
     status = data.get("status", "?")
-    alpha = data.get("is_alpha")
+    fee_waived = data.get("is_alpha")
     lines = [
         f"Negotiation started. Case ID: {case_id}",
         f"Status: {status}",
     ]
-    if alpha:
+    if fee_waived:
         lines.append(
-            "This case is in the free alpha cohort (fee $0)."
+            "A fee waiver applies to this case."
         )
     lines.append(
         "Dueback will negotiate with the counterparty and verify savings "
