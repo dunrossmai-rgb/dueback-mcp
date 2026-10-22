@@ -78,7 +78,7 @@ is JSON shaped like this (the same object also appears under
 
 ## Tools
 
-The remote server exposes four tools:
+The remote server exposes five tools:
 
 | Tool | Auth | What it does |
 |---|---|---|
@@ -86,6 +86,7 @@ The remote server exposes four tools:
 | `list_verified_savings` | none | Look up savings Dueback has verified |
 | `start_negotiation_case` | OAuth or API key | Start a negotiation case (**human consent required**) |
 | `get_case_status` | OAuth or API key | Check a case's status and recorded savings |
+| `list_my_cases` | OAuth or API key | List your own negotiation cases and their statuses |
 
 ## Get an API key (self-serve)
 
