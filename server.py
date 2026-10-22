@@ -43,7 +43,7 @@ server = MCPServer(
         "with pricing disclosed (see that tool's description). Use "
         "dueback_case_status to report progress on an open case."
     ),
-    version="0.1.1",
+    version="0.1.2",
 )
 
 
