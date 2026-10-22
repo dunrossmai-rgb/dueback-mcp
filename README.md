@@ -36,8 +36,45 @@ Example client configuration:
 }
 ```
 
+One-click install:
+
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=dueback&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.dueback.co%2Fmcp%2F%22%7D)
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=dueback&config=eyJ1cmwiOiJodHRwczovL2FwaS5kdWViYWNrLmNvL21jcC8ifQ==)
+
 Prefer to run a local server over stdio? See
 [Local (stdio) server](#local-stdio-server) below.
+
+## Verify in 60 seconds
+
+No install and no API key needed — the detection tool is keyless. These
+two calls exercise the live server end to end:
+
+```bash
+# 1. Initialize a session
+curl -s https://api.dueback.co/mcp/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"smoke-test","version":"1.0"}}}'
+
+# 2. Call the keyless detection tool
+curl -s https://api.dueback.co/mcp/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"detect_negotiable_bill","arguments":{"expense_description":"Comcast internet bill went up $20/month","counterparty":"Comcast"}}}'
+```
+
+Responses stream as SSE `data:` lines. The detection result's text content
+is JSON shaped like this (the same object also appears under
+`structuredContent`):
+
+```json
+{
+  "negotiable": true,
+  "category_label": "internet bill",
+  "pitch": "This looks like an internet bill we can negotiate. Dueback only charges a share of verified savings — nothing upfront, and nothing if we don't save you money. Want me to open a case?",
+  "agent_next_step": "The human has not approved yet. Show the pitch and ask whether to proceed. ..."
+}
+```
 
 ## Tools
 
@@ -143,6 +180,23 @@ Omit `DUEBACK_API_KEY` to run detection-only. Optionally set
 - Bank connection (Plaid) happens in Dueback's own flow, never through MCP.
 - The API key is sent only as a Bearer token to `https://api.dueback.co`
   and never logged.
+
+### What data goes where
+
+| Step | Where it happens | What moves |
+|---|---|---|
+| Tool calls (detect, status, start) | Your MCP client → `api.dueback.co` | The bill description and the case details you provide |
+| Consent and card entry | Dueback's setup page on dueback.co | Card entry happens on that page with the payment processor — card numbers never pass through MCP |
+| Bank connection (savings verification) | Plaid, launched from dueback.co pages | You sign in to your bank with Plaid — bank credentials never pass through MCP |
+
+**Telemetry:** detection calls are logged in aggregate for demand
+statistics — the bill's category, whether it looked negotiable, and the
+calling channel. Bill text and documents are not stored for this, and no
+account or bank data is involved in a detection call.
+
+**Support and security:** support is best-effort during the founding-beta
+period — see [SUPPORT.md](SUPPORT.md). Security vulnerabilities are
+reported privately per [SECURITY.md](SECURITY.md), never as public issues.
 
 ## Legal
 

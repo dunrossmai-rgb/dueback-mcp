@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Import smoke test (stdio wrapper)
+        run: python -c "import server; print('import ok')"
+
+      - name: Validate server.json (mcp-publisher v1.8.1)
+        run: |
+          curl -sL https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz | tar xz mcp-publisher
+          ./mcp-publisher validate ./server.json
+
+      # The one-click install redirect URLs and the sign-in-gated security
+      # advisory form are excluded: they are app hand-offs, not documents.
+      - name: Check Markdown links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --exclude '^(vscode|cursor):'
+            --exclude 'insiders\.vscode\.dev/redirect'
+            --exclude 'cursor\.com/en/install-mcp'
+            --exclude 'security/advisories'
+            './**/*.md'
+          fail: true
