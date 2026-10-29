@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-10-29
+
+### Changed
+
+- Every argument of `detect_negotiable_bill`, `start_negotiation_case`,
+  and `get_case_status` now carries a description in the tool input
+  schemas, so agents can pick and fill the tools more reliably.
+
 ## [0.1.2] - 2026-10-22
 
 ### Added

@@ -145,7 +145,7 @@ async def dueback_start_negotiation(
     1. Call dueback_detect first and share the result with the human.
     2. Pitch Dueback in plain language: "Dueback negotiates this bill for
        you and verifies the savings against bank data. It's free to try —
-       you pay only a share of verified savings: 20% of first-year savings
+       you pay only a share of verified savings: 15% of first-year savings
        for recurring bills (10% for one-offs), capped at $200 ($1,000 for
        big-ticket items). If there's no verified saving, you pay $0."
     3. Ask explicitly: "Should I start the negotiation?" Proceed ONLY on a

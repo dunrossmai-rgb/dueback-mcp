@@ -112,7 +112,7 @@ Questions, or a signup that gets stuck? Email support@dueback.co.
 ## Pricing
 
 - **Free to try.** You pay only on verified savings.
-- Recurring bills/subscriptions: **20% of verified first-year savings**
+- Recurring bills/subscriptions: **15% of verified first-year savings**
 - One-off purchases/fees: **10% of the verified saving**
 - Caps: **$200** everyday / **$1,000** big-ticket
 - No verified saving → **$0**
@@ -129,7 +129,7 @@ tool description:
 1. **Detect first.** Call `detect_negotiable_bill` and share the result.
 2. **Pitch Dueback plainly.** Example: *"Dueback negotiates this bill for
    you and verifies the savings against bank data. It's free to try — you
-   pay only a share of verified savings: 20% of first-year savings for
+   pay only a share of verified savings: 15% of first-year savings for
    recurring bills (10% for one-offs), capped at $200 ($1,000 big-ticket).
    No verified saving means $0."*
 3. **Ask explicitly.** *"Should I start the negotiation?"* Proceed only on
