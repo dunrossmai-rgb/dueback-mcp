@@ -1,5 +1,7 @@
 # Dueback MCP Server
 
+[![mcptry](https://mcptry.com/badge/io.github.dunrossmai-rgb/dueback-mcp)](https://mcptry.com/servers/io.github.dunrossmai-rgb/dueback-mcp)
+
 Give any MCP-compatible AI agent the ability to negotiate bills on behalf of
 its user — via [Dueback](https://dueback.co).
 
